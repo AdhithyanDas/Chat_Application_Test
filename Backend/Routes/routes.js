@@ -13,9 +13,9 @@ router.post('/log', userController.userLogin)
 
 router.post('/addroom', jwtMiddle, chatRoomController.createRoom)
 router.get('/getrooms', jwtMiddle, chatRoomController.getAllRooms)
-router.put('/updateroom', jwtMiddle, chatRoomController.updateRoom)
+router.put('/updateroom/:roomId', jwtMiddle, chatRoomController.updateRoom)
 router.delete('/deleteroom/:id', jwtMiddle, chatRoomController.deleteRoom)
-router.post('/joinroom', jwtMiddle, chatRoomController.joinRoom)
+router.post('/joinroom/:roomId', jwtMiddle, chatRoomController.joinRoom)
 
 router.post('/sendmessage', jwtMiddle, messageController.sendMessage)
 router.get('/fetchmessages/:roomId', jwtMiddle, messageController.getMessages)

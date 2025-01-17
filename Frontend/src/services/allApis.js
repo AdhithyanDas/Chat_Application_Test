@@ -16,3 +16,11 @@ export const createRoomApi = async (header, data) => {
 export const fetchRoomsApi = async (header) => {
     return await commonApi(`${base_url}/getrooms`, 'GET', header, "")
 }
+
+export const deleteRoomApi = async (id, header) => {
+    return await commonApi(`${base_url}/deleteroom/${id}`, 'DELETE', header, {})
+}
+
+export const updateRoomApi = async (id, header, data) => {
+    return await commonApi(`${base_url}/updateroom/${id}`, 'PUT', header, data)
+}

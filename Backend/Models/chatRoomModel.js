@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const chatRoomSchema = new mongoose.Schema({
     name: {
@@ -7,15 +7,20 @@ const chatRoomSchema = new mongoose.Schema({
         unique: true
     },
     participants: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'users',
+        },
+        username: {
+            type: String,
+        }
     }],
     createdAt: {
         type: Date,
         default: Date.now
     }
-})
+});
 
-const chatRoom = mongoose.model('chatRooms', chatRoomSchema)
+const chatRoom = mongoose.model('chatRooms', chatRoomSchema);
 
-module.exports = chatRoom
+module.exports = chatRoom;

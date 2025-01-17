@@ -24,7 +24,7 @@ exports.createRoom = async (req, res) => {
 
 exports.getAllRooms = async (req, res) => {
     try {
-        const rooms = await chatRoom.find().sort({ createdAt: -1 }).populate('participants')
+        const rooms = await chatRoom.find().sort({ createdAt: -1 })
         res.status(200).json({ rooms })
     } catch (error) {
         console.log(error);
@@ -34,7 +34,7 @@ exports.getAllRooms = async (req, res) => {
 
 exports.updateRoom = async (req, res) => {
     try {
-        const roomId = req.body
+        const { roomId } = req.params
         const { name } = req.body
         const existingRoom = await chatRoom.findOne({ _id: roomId })
         existingRoom.name = name
@@ -59,10 +59,10 @@ exports.deleteRoom = async (req, res) => {
 
 exports.joinRoom = async (req, res) => {
     try {
-        const roomId = req.body
-        const userId = req.payload
+        const { roomId } = req.params
+        const { userId, username } = req.payload
         const room = await chatRoom.findById(roomId)
-        room.participants.push(userId)
+        room.participants.push({ userId, username })
         await room.save()
         res.status(200).json(room)
     } catch (error) {

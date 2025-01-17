@@ -45,7 +45,7 @@ exports.userLogin = async (req, res) => {
                 if (!isPasswordCorrect) {
                     res.status(404).json("Invalid password!")
                 } else {
-                    const token = jwt.sign({ userId: existingUser._id }, process.env.SECRET_KEY)
+                    const token = jwt.sign({ userId: existingUser._id, username }, process.env.SECRET_KEY)
                     res.status(200).json({ token, username: existingUser.username })
                 }
             } else {
