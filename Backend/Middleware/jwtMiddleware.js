@@ -7,7 +7,7 @@ const jwtMiddleware = async (req, res, next) => {
         req.payload = result.userId
         next()
     } catch (error) {
-        res.status(400).json(err)
+        res.status(400).json(error)
     }
 }
 
