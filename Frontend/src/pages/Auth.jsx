@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import toast from 'react-hot-toast';
 import { loginApi, registerApi } from '../services/allApis';
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
+import { roomDivClickContext } from '../Context/ContextApi';
+import { socketContext } from '../Context/SocketContext';
 
 function Auth() {
 
@@ -11,6 +13,9 @@ function Auth() {
     const [user, setUser] = useState({
         username: "", password: ""
     })
+
+    const { setDivClickResponse } = useContext(roomDivClickContext);
+    const { handleLoginSubmit } = useContext(socketContext)
 
     const handleRegister = async () => {
         const { username, password } = user
@@ -44,10 +49,13 @@ function Auth() {
             if (res.status == 200) {
                 sessionStorage.setItem('token', res.data.token)
                 sessionStorage.setItem('username', res.data.username)
+                sessionStorage.setItem('userId', res.data.userId)
+                handleLoginSubmit(res.data.userId)
+                setDivClickResponse(false)
                 setUser({
                     username: "", password: ""
                 })
-                toast.success("Login successful!")
+                toast.success('Login successful!');
                 nav('./home')
             } else {
                 toast.error("Incorrect email or password!")

@@ -16,8 +16,9 @@ router.get('/getrooms', jwtMiddle, chatRoomController.getAllRooms)
 router.put('/updateroom/:roomId', jwtMiddle, chatRoomController.updateRoom)
 router.delete('/deleteroom/:id', jwtMiddle, chatRoomController.deleteRoom)
 router.post('/joinroom/:roomId', jwtMiddle, chatRoomController.joinRoom)
+router.get('/getjoinedrooms', jwtMiddle, chatRoomController.getJoinedRooms)
 
-router.post('/sendmessage', jwtMiddle, messageController.sendMessage)
+router.post('/sendmessage/:roomId', jwtMiddle, messageController.sendMessage)
 router.get('/fetchmessages/:roomId', jwtMiddle, messageController.getMessages)
 
 module.exports = router

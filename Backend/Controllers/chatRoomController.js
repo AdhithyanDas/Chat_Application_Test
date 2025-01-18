@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose')
 const chatRoom = require('../Models/chatRoomModel')
 
 exports.createRoom = async (req, res) => {
@@ -70,3 +71,17 @@ exports.joinRoom = async (req, res) => {
         res.status(404).json("Failed to join room!")
     }
 }
+
+
+exports.getJoinedRooms = async (req, res) => {
+    try {
+        const userId = req.payload.userId;
+        const rooms = await chatRoom.find({
+            "participants.userId": userId
+        });
+        res.status(200).json({ rooms });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch rooms!" });
+    }
+};

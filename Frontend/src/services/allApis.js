@@ -24,3 +24,19 @@ export const deleteRoomApi = async (id, header) => {
 export const updateRoomApi = async (id, header, data) => {
     return await commonApi(`${base_url}/updateroom/${id}`, 'PUT', header, data)
 }
+
+export const joinRoomApi = async (id, header) => {
+    return await commonApi(`${base_url}/joinroom/${id}`, 'POST', header, {})
+}
+
+export const fetchJoinedRoomApi = async (header) => {
+    return await commonApi(`${base_url}/getjoinedrooms`, 'GET', header, "")
+}
+
+export const sendMessageApi = async (id, header, data) => {
+    return await commonApi(`${base_url}/sendmessage/${id}`, 'POST', header, data)
+}
+
+export const fetchMessageApi = async (id, header) => {
+    return await commonApi(`${base_url}/fetchmessages/${id}`, 'GET', header, "")
+}

@@ -47,11 +47,12 @@ function ChatRoomList() {
         }
     }
 
-    const handleDivClick = (name, participants) => {
+    const handleDivClick = (name, participants, roomId) => {
         setDivClickResponse({
             div: true,
             name,
-            participants
+            participants,
+            roomId
         })
     }
 
@@ -62,8 +63,11 @@ function ChatRoomList() {
                     <>
                         {
                             data?.map(item => (
-                                <div onClick={() => handleDivClick(item.name, item.participants)} className='d-flex align-items-center ps-3' style={{ borderBottom: "1px solid black", height: "8vh", cursor: 'pointer' }}>
-                                    <h3 className='fw-bold'>{item.name}</h3>
+                                <div onClick={() => handleDivClick(item.name, item.participants, item._id)} className='d-flex align-items-center ps-3' style={{ borderBottom: "1px solid black", height: "8vh", cursor: 'pointer' }}>
+                                    <div className='d-flex  flex-column'>
+                                        <h4 className='fw-bold mb-0'>{item.name}</h4>
+                                        <span>{new Date(item.createdAt).toLocaleString()}</span>
+                                    </div>
                                     <div className='ms-auto'>
                                         <UpdateChatRoom room={item} />
                                         <button onClick={(e) => handleDeleteRoom(item._id, e)} className='btn text-primary'><Trash /></button>

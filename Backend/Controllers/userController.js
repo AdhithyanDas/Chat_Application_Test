@@ -46,7 +46,7 @@ exports.userLogin = async (req, res) => {
                     res.status(404).json("Invalid password!")
                 } else {
                     const token = jwt.sign({ userId: existingUser._id, username }, process.env.SECRET_KEY)
-                    res.status(200).json({ token, username: existingUser.username })
+                    res.status(200).json({ token, username: existingUser.username, userId: existingUser._id })
                 }
             } else {
                 res.status(404).json("Invalid username/password!")

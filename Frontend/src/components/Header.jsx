@@ -1,18 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { MessageCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { socketContext } from '../Context/SocketContext';
+import toast from 'react-hot-toast';
 
 function Header() {
 
     const isLoggedIn = sessionStorage.getItem('username')
+    const { handleLogout } = useContext(socketContext)
 
-    const handleLogout = () => {
-        sessionStorage.clear()
-        nav('/')
-    }
-
+    const handleLogoutt = () => {
+        handleLogout()
+        toast.success("You have successfully logged out!")
+        nav('/'); // Navigate to login
+    };
     const nav = useNavigate()
 
     return (
@@ -29,7 +32,7 @@ function Header() {
                         {
                             isLoggedIn &&
                             <>
-                                <button onClick={handleLogout} className='btn btn-dark'>
+                                <button onClick={handleLogoutt} className='btn btn-dark'>
                                     Logout
                                 </button>
                             </>

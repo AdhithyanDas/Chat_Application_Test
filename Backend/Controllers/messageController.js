@@ -3,8 +3,9 @@ const chatRoom = require('../Models/chatRoomModel')
 
 exports.sendMessage = async (req, res) => {
     try {
-        const { roomId, content } = req.body
-        const senderId = req.payload
+        const { content } = req.body
+        const { roomId } = req.params
+        const senderId = req.payload.userId
         if (!roomId || !content) {
             res.status(406).json("Invaid data!")
         } else {

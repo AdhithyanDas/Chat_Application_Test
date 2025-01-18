@@ -4,11 +4,11 @@ const cors = require('cors')
 const routes = require("./Routes/routes")
 require("./Connection/db")
 
-const server = express()
+const { chatApp, server } = require('./Socket/socket')
 
-server.use(cors())
-server.use(express.json())
-server.use(routes)
+chatApp.use(cors())
+chatApp.use(express.json())
+chatApp.use(routes)
 
 const PORT = 3000 || process.env.PORT
 
