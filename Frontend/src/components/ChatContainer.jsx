@@ -5,7 +5,7 @@ import ChatInputBox from './ChatInputBox'
 function ChatContainer() {
     return (
         <>
-            <div style={{ height: '60vh',overflow:'auto' }}>
+            <div style={{ height: '60vh', overflow: 'auto' }}>
                 <ChatDisplay />
             </div>
 

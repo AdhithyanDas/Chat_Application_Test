@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 const commonApi = async (apiUrl, apiMethod, apiHeaders, apiBody) => {
     const config = {
@@ -8,7 +8,7 @@ const commonApi = async (apiUrl, apiMethod, apiHeaders, apiBody) => {
         data: apiBody
     }
     return await axios(config).then(res => res).catch(err => {
-        console.log(err);
+        console.log(err)
         return err
     })
 }

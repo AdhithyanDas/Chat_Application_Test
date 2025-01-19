@@ -17,7 +17,7 @@ exports.sendMessage = async (req, res) => {
             res.status(200).json(newMessage)
         }
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(406).json("Failed to send message!")
     }
 }
@@ -32,7 +32,7 @@ exports.getMessages = async (req, res) => {
             res.status(200).json({ messages })
         }
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(406).json("Failed to fetch messages!")
     }
 }

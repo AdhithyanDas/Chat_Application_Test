@@ -13,5 +13,5 @@ chatApp.use(routes)
 const PORT = 3000 || process.env.PORT
 
 server.listen(PORT, () => {
-    console.log(`Server running at ${PORT}`);
+    console.log(`Server running at ${PORT}`)
 })

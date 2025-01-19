@@ -1,4 +1,3 @@
-const { default: mongoose } = require('mongoose')
 const chatRoom = require('../Models/chatRoomModel')
 
 exports.createRoom = async (req, res) => {
@@ -18,7 +17,7 @@ exports.createRoom = async (req, res) => {
             }
         }
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(404).json("Failed to create room!")
     }
 }
@@ -28,7 +27,7 @@ exports.getAllRooms = async (req, res) => {
         const rooms = await chatRoom.find().sort({ createdAt: -1 })
         res.status(200).json({ rooms })
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(404).json("Failed to get rooms!")
     }
 }
@@ -42,7 +41,7 @@ exports.updateRoom = async (req, res) => {
         await existingRoom.save()
         res.status(200).json(existingRoom)
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(404).json("Failed to update room!")
     }
 }
@@ -53,7 +52,7 @@ exports.deleteRoom = async (req, res) => {
         const result = await chatRoom.findOneAndDelete({ _id: id })
         res.status(200).json(result)
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(404).json("Failed to delete room!")
     }
 }
@@ -67,11 +66,10 @@ exports.joinRoom = async (req, res) => {
         await room.save()
         res.status(200).json(room)
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(404).json("Failed to join room!")
     }
 }
-
 
 exports.getJoinedRooms = async (req, res) => {
     try {
@@ -81,7 +79,7 @@ exports.getJoinedRooms = async (req, res) => {
         });
         res.status(200).json({ rooms });
     } catch (error) {
-        console.error(error);
+        console.error(error)
         res.status(500).json({ error: "Failed to fetch rooms!" });
     }
 };

@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
-import toast from 'react-hot-toast';
-import { loginApi, registerApi } from '../services/allApis';
-import { data, useNavigate } from 'react-router-dom';
-import { roomDivClickContext } from '../Context/ContextApi';
-import { socketContext } from '../Context/SocketContext';
+import React, { useContext, useState } from 'react'
+import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import Form from 'react-bootstrap/Form'
+import toast from 'react-hot-toast'
+import { loginApi, registerApi } from '../services/allApis'
+import { useNavigate } from 'react-router-dom'
+import { authContext, roomDivClickContext } from '../Context/ContextApi'
+import { socketContext } from '../Context/SocketContext'
 
 function Auth() {
 
@@ -14,8 +14,15 @@ function Auth() {
         username: "", password: ""
     })
 
-    const { setDivClickResponse } = useContext(roomDivClickContext);
+    const { setDivClickResponse } = useContext(roomDivClickContext)
     const { handleLoginSubmit } = useContext(socketContext)
+    const { setAuthContextStatus } = useContext(authContext) // context-status
+
+    const nav = useNavigate()
+
+    const changeAuth = () => {
+        setAuthStatus(!authStatus)
+    }
 
     const handleRegister = async () => {
         const { username, password } = user
@@ -23,10 +30,11 @@ function Auth() {
             toast.error("All fields are required!")
         } else {
             if (password.length < 6) {
-                toast.error("Password must be at least 6 characters!");
+                toast.error("Password must be at least 6 characters!")
             }
         }
         const res = await registerApi(user)
+
         if (res.status == 200) {
             toast.success("Registration successful!")
             setUser({
@@ -55,19 +63,14 @@ function Auth() {
                 setUser({
                     username: "", password: ""
                 })
-                toast.success('Login successful!');
+                toast.success('Login successful!')
+                setAuthContextStatus(true)
                 nav('./home')
             } else {
                 toast.error("Incorrect email or password!")
             }
         }
     }
-
-    const changeAuth = () => {
-        setAuthStatus(!authStatus)
-    }
-
-    const nav = useNavigate()
 
     return (
         <>

@@ -1,39 +1,46 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
+import React, { createContext, useEffect, useState } from 'react'
+import { io } from 'socket.io-client'
 
-export const socketContext = createContext();
+export const socketContext = createContext()
 
 function SocketContext({ children }) {
     const [socket, setSocket] = useState(null);
-    const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
+    const [onlineUsers, setOnlineUsers] = useState([]) // onlineUsers
+    const [userId, setUserId] = useState(sessionStorage.getItem('userId'))
+    const [lastSeen, setLastSeen] = useState({})
 
     useEffect(() => {
         if (userId) {
             const newSocket = io('http://localhost:3000', {
                 query: { userId },
-            });
+            })
             setSocket(newSocket);
-
-            return () => newSocket.disconnect();
+            newSocket.on("getOnlineUsers", (users) => {
+                setOnlineUsers(users)
+            })
+            newSocket.on("updateLastSeen", (data) => {
+                setLastSeen(data)
+            })
+            return () => newSocket.disconnect()
         }
-    }, [userId]);
+    }, [userId])
 
     // login
     const handleLoginSubmit = (newUserId) => {
-        setUserId(newUserId);
-    };
+        setUserId(newUserId)
+    }
 
     // logout
     const handleLogout = () => {
-        sessionStorage.clear();
-        setUserId(null);
-    };
+        sessionStorage.clear()
+        setUserId(null)
+    }
 
     return (
-        <socketContext.Provider value={{ socket, handleLoginSubmit, handleLogout }}>
+        <socketContext.Provider value={{ socket, handleLoginSubmit, onlineUsers, handleLogout, lastSeen }}>
             {children}
         </socketContext.Provider>
     );
 }
 
-export default SocketContext;
+export default SocketContext

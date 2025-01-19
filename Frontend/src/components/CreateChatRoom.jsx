@@ -1,18 +1,16 @@
 import React, { useContext, useState } from 'react'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
-import toast from 'react-hot-toast';
-import { createRoomApi } from '../services/allApis';
-import { createChatRoomContext } from '../Context/ContextApi';
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
+import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import Form from 'react-bootstrap/Form'
+import toast from 'react-hot-toast'
+import { createRoomApi } from '../services/allApis'
+import { createChatRoomContext } from '../Context/ContextApi'
 
 function CreateChatRoom() {
 
-  const [show, setShow] = useState(false);
-  const [room, setRoom] = useState({
-    name: ""
-  })
+  const [show, setShow] = useState(false)
+  const [room, setRoom] = useState({ name: "" })
 
   const { setCreateResponse } = useContext(createChatRoomContext)
 
@@ -26,9 +24,11 @@ function CreateChatRoom() {
         'Authorization': `Token ${sessionStorage.getItem('token')}`
       }
       const res = await createRoomApi(header, room)
+
       if (res.status == 200) {
         setCreateResponse(res)
         toast.success("Room created successful!")
+        setRoom({ name: "" })
         handleClose()
       } else {
         toast.error("Room creation failed!")
@@ -36,13 +36,14 @@ function CreateChatRoom() {
     }
   }
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   return (
     <>
       <div className='d-grid'>
-        <button onClick={handleShow} className='btn btn-primary fw-bold py-2' style={{ borderRadius: '5px 0 0 0' }}>Create Room +</button>
+        <button onClick={handleShow} className='btn btn-primary fw-bold py-2'
+          style={{ borderRadius: '5px 0 0 0' }}>Create Room +</button>
       </div>
 
       <Modal

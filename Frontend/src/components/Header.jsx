@@ -1,22 +1,25 @@
 import React, { useContext } from 'react'
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import { MessageCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { socketContext } from '../Context/SocketContext';
-import toast from 'react-hot-toast';
+import Container from 'react-bootstrap/Container'
+import Navbar from 'react-bootstrap/Navbar'
+import toast from 'react-hot-toast'
+import { MessageCircle } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { socketContext } from '../Context/SocketContext'
+import { authContext } from '../Context/ContextApi'
 
 function Header() {
 
-    const isLoggedIn = sessionStorage.getItem('username')
     const { handleLogout } = useContext(socketContext)
+    const isLoggedIn = sessionStorage.getItem('username')
+    const { setAuthContextStatus } = useContext(authContext) // context-status
+    const nav = useNavigate()
 
     const handleLogoutt = () => {
         handleLogout()
-        toast.success("You have successfully logged out!")
-        nav('/'); // Navigate to login
-    };
-    const nav = useNavigate()
+        toast.success("Logout successful!")
+        setAuthContextStatus(false)
+        nav('/')
+    }
 
     return (
         <>

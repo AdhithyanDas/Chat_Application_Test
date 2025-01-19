@@ -6,7 +6,9 @@ function Sidebar() {
     return (
         <>
             <CreateChatRoom />
-            <ChatRoomList />
+            <div style={{ overflow: 'auto', height: "68vh" }}>
+                <ChatRoomList />
+            </div>
         </>
     )
 }

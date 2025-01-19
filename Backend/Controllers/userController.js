@@ -28,7 +28,7 @@ exports.userRegistration = async (req, res) => {
             }
         }
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(400).json("Registration failed!")
     }
 }
@@ -53,7 +53,7 @@ exports.userLogin = async (req, res) => {
             }
         }
     } catch (error) {
-        console.log(error);
+        console.log(error)
         res.status(400).json("Login failed!")
     }
 }

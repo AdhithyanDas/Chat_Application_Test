@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
-import { Pencil } from 'lucide-react';
-import toast from 'react-hot-toast';
-import { updateRoomApi } from '../services/allApis';
-import { updateChatRoomContext } from '../Context/ContextApi';
+import React, { useContext, useState } from 'react'
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
+import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import Form from 'react-bootstrap/Form'
+import toast from 'react-hot-toast'
+import { Pencil } from 'lucide-react'
+import { updateRoomApi } from '../services/allApis'
+import { updateChatRoomContext } from '../Context/ContextApi'
 
 function UpdateChatRoom({ room }) {
 
@@ -25,6 +25,7 @@ function UpdateChatRoom({ room }) {
                 'Authorization': `Token ${sessionStorage.getItem('token')}`
             }
             const res = await updateRoomApi(room._id, header, data)
+
             if (res.status == 200) {
                 toast.success("Room updated!")
                 setUpdateResponse(res)
@@ -36,17 +37,20 @@ function UpdateChatRoom({ room }) {
     }
 
     const handleClose = (e) => {
-        e?.stopPropagation();
-        setShow(false);
+        e?.stopPropagation()
+        setShow(false)
     }
+
     const handleShow = (e) => {
-        e.stopPropagation();
-        setShow(true);
+        e.stopPropagation()
+        setShow(true)
     }
 
     return (
         <>
-            <button onClick={(e) => handleShow(e)} className='btn text-warning'><Pencil /></button>
+            <button onClick={(e) => handleShow(e)} className='btn text-warning'>
+                <Pencil />
+            </button>
 
             <Modal
                 show={show}
@@ -69,7 +73,6 @@ function UpdateChatRoom({ room }) {
                     <Button onClick={handleUpdateRoom} variant="primary">Update</Button>
                 </Modal.Footer>
             </Modal>
-
         </>
     )
 }
